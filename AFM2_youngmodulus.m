@@ -1,5 +1,5 @@
 % this algorithm fits the Hertz model for a spherical indenter on a half space for increasing indentation depths
-% it takes the files saved with MLOsingle_1_contactpoint.m as input and 
+% it takes the files saved with AFM1_contactpoint.m as input and 
 % give as output the Young's modulus for each indentation depth for each
 % file (saved as .xslx file)
 
@@ -12,6 +12,8 @@ indenter_radius = 3000; % spherical indenter used for experiments: radius in [nm
 % where are the files going to be saved?
 output_folder = 'D:\SHEFFIELD\WORK\AFM\output\young'; % name folder
 mkdir(output_folder);   % create folder
+% what is the working folder for Matlab?
+working_folder = 'D:\SHEFFIELD\WORK\Matlab';
 
 % 1_ open folder and list files
 data_folder = cd (input_folder);
