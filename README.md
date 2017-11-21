@@ -3,6 +3,8 @@ Matlab coding for AFM raw data post-processing > Hertz model to obtain cell Youn
 
 This repository contains Matlab codes to process Atomic Force Microscopy raw force spectroscopy data obtained on cells with a spherical indenter
 
+All codes were tested on Matlab R2016a version
+
 #### Raw data
 The raw data are force-spectroscopy .txt files from AFM experiments. They contain four columns: cantilever height [m], cantilever vertical deflection [N], series time [s], segment time [s].
 All the experiments in this context were carried out with a Nanowizard 3 microscope from JPK. The built-in software provide .txt files in this form (comments are preceded by #)
