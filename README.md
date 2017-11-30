@@ -24,7 +24,7 @@ This is achieved with the Matlab code AFM2_youngmodulus.m.
 This code does the following:
 * takes as _input_ the pre-processed data,
 * calculates the Young's modulus for increasing indentation depths by Hertz fitting (through the function createFitHertz.m),
-* gives as _output_ a summary .xslx file containing the Young's modulus for each indentation depth for each file.
+* gives as _output_ a summary .xslx or .csv file containing the Young's modulus for each indentation depth for each file.
 
 #### Sample size considerations
 A Monte Carlo analysis is performed by AFM3_samplesize.m on the Young's modulus averaged per cell.
@@ -51,7 +51,7 @@ New .txt files are saved as output in a folder of choice containing cantilever h
 
 ##### AFM2_youngmodulus.m
 This algorithm fits the Hertz model for a spherical indenter on a half space for increasing indentation depths.
-It takes the files saved with AFM1_contactpoint.m as input and give as output the Young's modulus for each indentation depth for each file (saved as .xslx file).
+It takes the files saved with AFM1_contactpoint.m as input and give as output the Young's modulus for each indentation depth for each file (saved as .xslx or .csv file).
 
 1. _INPUT_ - information about the performed AFM experiment need to be entered by the user (indenter radius, input folder and Matlab working folder)
 2. open input folder and list file names for next step
