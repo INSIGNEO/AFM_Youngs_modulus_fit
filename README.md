@@ -27,13 +27,12 @@ This code does the following:
 * gives as _output_ a summary .xslx or .csv file containing the Young's modulus for each indentation depth for each file.
 
 #### Sample size considerations
-A Monte Carlo analysis is performed by AFM3_samplesize.m on the Young's modulus averaged per cell.
+A retrospective power analysis is performed by AFM3_samplesize.m on the effective modulus averaged per cell.
 This analysis allows for calculating the minimum sample size needed to obtain a reliable average population value (i.e. a value that remains constant to the addition of further input).
 This code does the following:
-* takes as _input_ the Young's modulus values for increasing indentation depths averaged per cell (e.g. if 15 force-spectroscopy curves were obtained for a given cell, this will correspond to one line of _input_ for this step; this line will be calculated as the average value of the 15 curves for each indentation depth),
-* calculates a median value across all indentation depths,
-* calculates the percentage error on the median for samples of increasing size,
-* returns as err5 and err10 (_output_) the number of cell needed if accepting a maximum percentage error of 5% and 10% respectively on the average population Young's modulus.
+* takes as _input_ the Young's modulus values for maximum indentation averaged per cell (e.g. if 15 force-spectroscopy curves were obtained for a given cell, this will correspond to one line of _input_ for this step; this line will be calculated as the average value of the 15 curves),
+* for increasing sample sizes, calculate the effective modulus at convergence (mean and std),
+* returns as CV the coefficient of variation for each sample size calculated as std/mean.
 
 #### Detailed code description
 ##### AFM1_contactpoint.m
@@ -64,11 +63,15 @@ It takes the files saved with AFM1_contactpoint.m as input and give as output th
 5. save summary output file for all files
 
 ##### AFM3_samplesize.m
-This algorithm calculates the sample size needed to obtain a reliable Young's modulus median value for the cell population.
-It takes as input the matrix DATA containing the Young's modulus averaged per cell for all indentation depths (i.e. each row represents one cell, each column one indentation depth).
+This algorithm calculates the sample size needed to obtain a reliable effective modulus value for the cell population by retrospective power analysis.
+It takes as input the matrix DATA containing the Young's modulus averaged per cell for all indentation depths (i.e. each row represents one cell, each column one indentation depth), but only considers the maximum indentation depth.
 
-1. calculate the median across indentation depths for each cell
-2. randomize cell acquisition order
-3. compute average for population of increasing size (for each step: sample has an additional cell - picked randomly from the list, compute average)
-4. compute instant percentage error
-5. return sample sizes for 10% (err10) and 5% percentage error (err5)
+1. get the maximum indentation data
+2. calculate the effective modulus at convergence for increasing sample sizes (WHILE loop for each sample size N until the convergence threshold is reached)
+    2. draw N cells with replacement (bootstrap)
+    3. calculate average for the N cells (instant effective modulus)
+    4. calculate average effective modulus for subsequent draws (cumulative effective modulus)
+    5. calculate percentage errors
+    6. check convergence vector
+3. save effective modulus at convergence for each sample size (average and dispersion)   
+4. return the coefficient of variation (CV) for each sample size using the effective modulus at convergence
