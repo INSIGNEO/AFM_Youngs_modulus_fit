@@ -12,6 +12,8 @@
 %     DATA_med(i,1) = median(DATA(i,:))/1000; %[kPa]
 % end
 
+% it returns as output the coefficient of variation (CV) for each sample size N
+
 % 1_ get data
 DATA_maxind = DATA(:,end);
 sizeDATA = size(DATA,1);
