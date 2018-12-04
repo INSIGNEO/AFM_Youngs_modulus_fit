@@ -28,3 +28,15 @@ It takes as input the matrix DATA containing the Young's modulus averaged per ce
     6. check convergence vector
 3. save effective modulus at convergence for each sample size (average and dispersion)
 4. return the coefficient of variation (CV) for each sample size using the effective modulus at convergence
+
+##### AFM4_comparative_samplesize.m
+This algorithm calculates the sample size needed to obtain statistically significant difference between the nucleus and the periphery.
+It takes as input the matrix DATA containing the Young's modulus averaged per cell (nucleus and periphery) for all indentation depths (i.e. each row represents one cell, each column one indentation depth), but only considers the maximum indentation depth.
+
+1. get the maximum indentation data
+2. calculate the p-value for Mann-Whitney test at convergence for increasing sample sizes (WHILE loop for each sample size N until the convergence threshold is reached)
+    1. draw N cells with replacement (bootstrap)
+    2. calculate Mann-Whitney p-value (instant value)
+    3. calculate average p-value for subsequent draws (cumulative value)
+    4. check convergence vector
+3. compute sample size required to observe statistical difference between nucleus and periphery (Mann Whitney p-value < 0.01)
